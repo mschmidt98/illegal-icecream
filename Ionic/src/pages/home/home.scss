@@ -1,3 +1,8 @@
-page-home {
+ion-grid {
+  height: 100% !important;
+}
 
+ion-row, button {
+  height: 100% !important;
+  display: block;
 }
