@@ -113,6 +113,10 @@ void writeHtmlWithStatus(WiFiClient client, char state)
   client.println("<a href=\"/light=c\"><button>C</button></a>");
   client.println("<a href=\"/light=d\"><button>D</button></a>");
   client.println("</html>");
+
+  // memory leak fix?
+  client.flush();
+  client.stop();
   
   delay(1);
   Serial.println("Client disonnected");
