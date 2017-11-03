@@ -4,8 +4,13 @@
 const char* ssid = "Schmidt";
 const char* passwd = "84966060666259704104";
 
+const int secsPerRestart = 300; // Das hier ändern, um Restart-Zyklus zu ändern
+const int millisPerRestart = secsPerRestart * 1000;
+
 int transm = 2; //GPIO2 = D4
-int ledPin = 5;
+int ledPin = 5; //GPIO5 = D1
+int resetPin = 1; //GPIO1 = TX
+
 WiFiServer server(80);
 RCSwitch mySwitch = RCSwitch();
 
@@ -18,6 +23,10 @@ void setup() {
   delay(10);
 
   Serial.println();
+  Serial.println();
+  Serial.print("Restart every ");
+  Serial.print(secsPerRestart);
+  Serial.println(" seconds");
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -56,7 +65,8 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  restartIfTimeHasCome();
+
   WiFiClient client = server.available();
   if(!client) {
     client.flush();
@@ -98,6 +108,19 @@ void loop() {
   }
   
   writeHtmlWithStatus(client, state);
+}
+
+void restartIfTimeHasCome()
+{
+  unsigned long mil = millis();
+  Serial.print("Zeit: ");
+  Serial.println(mil);
+
+  if(mil >= millisPerRestart)
+  {
+    // pinMode(resetPin, OUTPUT);
+    // digitalWrite(resetPin, LOW);
+  }
 }
 
 void writeHtmlWithStatus(WiFiClient client, char state)

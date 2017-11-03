@@ -17,27 +17,26 @@
 
 </ion-header>
 
-
 <ion-content padding>
     <ion-grid>
         <ion-row>
             <ion-col col-12>
-                <button ion-button outline block>A</button>
+                <button ion-button outline block (click)="sendState('a')">A</button>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col col-12>
-                <button ion-button outline block>B</button>
+                <button ion-button outline block (click)="sendState('b')">B</button>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col col-12>
-                <button ion-button outline block>C</button>
+                <button ion-button outline block (click)="sendState('c')">C</button>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col col-12>
-                <button ion-button outline block>On/Off</button>
+                <button ion-button outline block (click)="sendState('d')">On/Off</button>
             </ion-col>
         </ion-row>
     </ion-grid>

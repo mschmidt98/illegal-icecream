@@ -63,8 +63,20 @@ export class AnzeigePage {
         alert.present();
     }
 
-    ionViewDidLoad() {
+    static ionViewDidLoad() {
         console.log('ionViewDidLoad AnzeigePage');
     }
 
+    sendState(type) {
+
+        var url = "http://192.168.178.36/light=" + type;
+
+        this.httpGetAsync(url);
+    }
+
+    httpGetAsync(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous
+        xmlHttp.send(null);
+    }
 }
