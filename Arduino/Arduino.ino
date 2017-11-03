@@ -59,6 +59,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   WiFiClient client = server.available();
   if(!client) {
+    client.flush();
     return;
   }
 
@@ -69,7 +70,6 @@ void loop() {
 
   String request = client.readStringUntil('\r');
   Serial.println(request);
-  client.flush();
 
   char* cmd = "";
   char state;
@@ -106,6 +106,9 @@ void writeHtmlWithStatus(WiFiClient client, char state)
   client.println("Content-Type: text/html");
   client.println(""); //  do not forget this one
   client.println("<!DOCTYPE HTML>");
+  client.println("<head>");
+  client.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+  client.println("</head>");
   client.println("<html>");
 
   client.println("<a href=\"/light=a\"><button>A</button></a>");
