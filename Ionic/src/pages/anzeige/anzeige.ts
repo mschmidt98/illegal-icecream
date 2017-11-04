@@ -8,6 +8,11 @@ import {AlertController} from "ionic-angular";
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+let activeButton;
+let btnA;
+let btnB;
+let btnC;
+let btnD;
 
 @IonicPage()
 @Component({
@@ -15,7 +20,27 @@ import {AlertController} from "ionic-angular";
     templateUrl: 'anzeige.html',
 })
 export class AnzeigePage {
+
     constructor(public alertCtrl: AlertController) {
+
+        // Button-Objekte aus HTML ziehen
+        const buttons = document.getElementsByTagName('button');
+        for (let i = 0; i < buttons.length; i++) {
+            let current = buttons[i];
+
+            if (current.innerText == 'A') {
+                btnA = current;
+            }
+            else if (current.innerText == 'B') {
+                btnB = current;
+            }
+            else if (current.innerText == 'C') {
+                btnC = current;
+            }
+            else if (current.innerText == 'ON/OFF') {
+                btnD = current;
+            }
+        }
     }
 
     showRadio() {
@@ -60,6 +85,7 @@ export class AnzeigePage {
             }
         });
 
+        // noinspection JSIgnoredPromiseFromCall
         alert.present();
     }
 
@@ -68,14 +94,31 @@ export class AnzeigePage {
     }
 
     sendState(type) {
+        // Alten aktiven auf Inaktiv setzten
+        // Neu gedrückten auf activeButton setzen
 
-        var url = "http://192.168.178.36/light=" + type;
+        alert(btnA.classNames);
+        if(activeButton != null)
+        {
+        }
 
-        this.httpGetAsync(url);
+        if (type == 'a') {
+        }
+        else if (type == 'b') {
+
+        }
+        else if (type == 'c') {
+
+        }
+        else {
+
+        }
+
+        AnzeigePage.httpGetAsync("http://192.168.178.36/light=" + type);
     }
 
-    httpGetAsync(theUrl) {
-        var xmlHttp = new XMLHttpRequest();
+    static httpGetAsync(theUrl) {
+        const xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", theUrl, true); // true for asynchronous
         xmlHttp.send(null);
     }

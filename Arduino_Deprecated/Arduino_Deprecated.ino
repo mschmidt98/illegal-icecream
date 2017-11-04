@@ -4,7 +4,7 @@
 const char* ssid = "Schmidt";
 const char* passwd = "84966060666259704104";
 
-const int secsPerRestart = 300; // Das hier ändern, um Restart-Zyklus zu ändern
+const int secsPerRestart = 20; // Das hier ändern, um Restart-Zyklus zu ändern
 const int millisPerRestart = secsPerRestart * 1000;
 
 int transm = 2; //GPIO2 = D4
@@ -17,9 +17,8 @@ RCSwitch mySwitch = RCSwitch();
 void setup() {
   // put your setup code here, to run once:
   pinMode(ledPin, OUTPUT);
-  digitalWrite(LED_BUILTIN, HIGH);
   
-  Serial.begin(9600);
+  Serial.begin(115200);
   delay(10);
 
   Serial.println();
@@ -65,11 +64,10 @@ void setup() {
 }
 
 void loop() {
-  restartIfTimeHasCome();
-
   WiFiClient client = server.available();
   if(!client) {
     client.flush();
+    restartIfTimeHasCome();
     return;
   }
 
@@ -115,6 +113,7 @@ void restartIfTimeHasCome()
   unsigned long mil = millis();
   Serial.print("Zeit: ");
   Serial.println(mil);
+  delay(10);
 
   if(mil >= millisPerRestart)
   {
