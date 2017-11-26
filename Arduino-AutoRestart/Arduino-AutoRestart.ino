@@ -51,6 +51,8 @@ void initConnection()
   Serial.println("");
   Serial.println("WiFi connected");
 
+  blink();
+
   //Webserver-Daten ausgeben
   server.begin();
   Serial.println("Server started");
@@ -108,13 +110,18 @@ void handleNewClient(WiFiClient client)
   }
 
   if(cmd != "") {
-    digitalWrite(ledPin, HIGH);
-    delay(10);
-    digitalWrite(ledPin, LOW);
+    blink();
     mySwitch.sendTriState(cmd); 
   }
   
   writeHtmlWithStatus(client, state);
+}
+
+void blink()
+{
+    digitalWrite(ledPin, HIGH);
+    delay(10);
+    digitalWrite(ledPin, LOW);
 }
 
 void writeHtmlWithStatus(WiFiClient client, char state)
